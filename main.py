@@ -2,7 +2,8 @@ import tornado.ioloop
 import tornado.websocket
 import tornado.web
 
-import serial
+import read_daq
+import multiprocessing
 
 socket_users = []
 results = multiprocessing.Queue()
