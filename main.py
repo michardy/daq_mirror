@@ -18,6 +18,10 @@ class MirrorSocket(tornado.websocket.WebSocketHandler):
 	def on_close(self):
 		socket_users.remove(self)
 
+	# https://stackoverflow.com/questions/24851207/tornado-403-get-warning-when-opening-websocket
+	def check_origin(self, origin):
+		return True
+
 
 class RootPage(tornado.web.RequestHandler):
 	def get(self):
@@ -42,7 +46,7 @@ if __name__ == "__main__":
 	app = make_app()
 	app.listen(8888)
 	scheduler = tornado.ioloop.PeriodicCallback(
-		copy_queue, 100, io_loop = mainLoop
+		copy_queue, 100, io_loop = tornado.ioloop.IOLoop.current()
 	)
 	scheduler.start()
 	tornado.ioloop.IOLoop.current().start()
