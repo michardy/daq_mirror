@@ -1,2 +1,2 @@
 pyserial==3.3
-tornado==4.5.1
+tornado==5.1
